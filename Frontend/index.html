@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadiro Technologies Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <h2>Cars</h2>
+    <ul id="cars-list"></ul>
+
+    <script>
+        fetch('/api/user/cars')
+            .then(response => response.json())
+            .then(cars => {
+                const carsList = document.getElementById('cars-list');
+                cars.forEach(car => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${car.carname} (${car.manufacturingYear}) - $${car.price}`;
+                    carsList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching cars:', error);
+            });
+    </script>
+</body>
+</html>
